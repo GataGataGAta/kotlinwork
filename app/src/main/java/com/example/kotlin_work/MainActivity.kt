@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -22,9 +23,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,6 +58,12 @@ data class Player(
     val number: Int
 )
 
+data class MainUiState(
+    val count: Int = 0,
+    val inputName: String = ""
+)
+
+
 val samplePlayers = listOf(
     Player(name = "山田 太郎", position = "Forward", number = 10),
     Player(name = "佐藤 健", position = "Midfielder", number = 8),
@@ -69,8 +75,26 @@ fun MainScreen(
     name: String,
     players: List<Player>
 ) {
-    var count by rememberSaveable { mutableIntStateOf(0) }
-    var inputName by rememberSaveable { mutableStateOf("") }
+    var uiState by remember {
+        mutableStateOf(MainUiState())
+    }
+
+    val onIncrementCount: () -> Unit = {
+        Log.d("MainScreen", "before = $uiState.count")
+
+        uiState = uiState.copy(
+            count = uiState.count + 1
+        )
+        Log.d("MainScreen", "after = $uiState.count")
+    }
+
+    val onChangeName: (String) -> Unit = { newText ->
+        Log.d("MainScreen", "inputName = $newText")
+        uiState = uiState.copy(
+            inputName = newText
+        )
+
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -78,40 +102,15 @@ fun MainScreen(
             .padding(24.dp)
     ) {
         item {
-            Text(text = "Hello $name!")
-            Text(text = "Androidアプリ開発を始めました")
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            CounterCard(
-                count = count,
-                onClick = {
-                    Log.d("MainScreen", "before = $count")
-                    count++
-                    Log.d("MainScreen", "after = $count")
-                }
+            HeaderSection(
+                name = name,
+                uiState = uiState,
+                onIncrementCount = onIncrementCount,
+                onChangeName = onChangeName
             )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            NameInputCard(
-                inputName = inputName,
-                onNameChange = { newText ->
-                    Log.d("MainScreen", "inputName = $newText")
-                    inputName = newText
-                })
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(text = "Player List")
-
-            Spacer(modifier = Modifier.height(8.dp))
         }
 
-        items(players) { player ->
-            PlayerCard(player = player)
-
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-
+        PlayerListSection(players = players)
     }
 
 }
@@ -188,6 +187,45 @@ fun PlayerCard(player: Player) {
     }
 }
 
+@Composable
+fun HeaderSection(
+    name: String,
+    uiState: MainUiState,
+    onIncrementCount: () -> Unit,
+    onChangeName: (String) -> Unit
+) {
+    Text(text = "Hello $name!")
+    Text(text = "Androidアプリ開発を始めました")
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    CounterCard(
+        count = uiState.count,
+        onClick = onIncrementCount
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+
+    NameInputCard(
+        inputName = uiState.inputName,
+        onNameChange = onChangeName
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Text(text = "Player List")
+
+    Spacer(modifier = Modifier.height(8.dp))
+
+
+}
+
+fun LazyListScope.PlayerListSection(players: List<Player>) {
+    items(players) { player ->
+        PlayerCard(player = player)
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+    }
+}
 //@Composable
 //fun PlayerList(
 //    players: List<Player>,
