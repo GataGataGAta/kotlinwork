@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -62,7 +63,8 @@ data class Player(
 
 data class MainUiState(
     val count: Int = 0,
-    val inputName: String = ""
+    val inputName: String = "",
+    val selectedPlayerName: String = ""
 )
 
 
@@ -98,6 +100,14 @@ fun MainScreen(
 
     }
 
+    val onPlayerClick: (Player) -> Unit = { player ->
+        Log.d("MainScreen", "selected player = ${player.name}")
+
+        uiState = uiState.copy(
+            selectedPlayerName = player.name
+        )
+    }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -112,7 +122,10 @@ fun MainScreen(
             )
         }
 
-        PlayerListSection(players = players)
+        PlayerListSection(
+            players = players,
+            onPlayerClick = onPlayerClick
+        )
     }
 
 }
@@ -172,12 +185,19 @@ fun NameInputCard(
 }
 
 @Composable
-fun PlayerCard(player: Player) {
+fun PlayerCard(
+    player: Player,
+    onClick: () -> Unit
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onClick()
+            },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
-        )
+        ),
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -207,6 +227,11 @@ fun HeaderSection(
     Text(text = "Hello $name!")
     Text(text = "Androidアプリ開発を始めました")
 
+    if (uiState.selectedPlayerName.isNotBlank()) {
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "Selected Player: ${uiState.selectedPlayerName}")
+    }
+
     Spacer(modifier = Modifier.height(16.dp))
 
     CounterCard(
@@ -228,9 +253,17 @@ fun HeaderSection(
 
 }
 
-fun LazyListScope.PlayerListSection(players: List<Player>) {
+fun LazyListScope.PlayerListSection(
+    players: List<Player>,
+    onPlayerClick: (Player) -> Unit
+) {
     items(players) { player ->
-        PlayerCard(player = player)
+        PlayerCard(
+            player = player,
+            onClick = {
+                onPlayerClick(player)
+            }
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 
