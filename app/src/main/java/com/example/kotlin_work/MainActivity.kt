@@ -64,7 +64,7 @@ data class Player(
 data class MainUiState(
     val count: Int = 0,
     val inputName: String = "",
-    val selectedPlayerName: String = ""
+    val selectedPlayer: Player? = null
 )
 
 
@@ -104,7 +104,7 @@ fun MainScreen(
         Log.d("MainScreen", "selected player = ${player.name}")
 
         uiState = uiState.copy(
-            selectedPlayerName = player.name
+            selectedPlayer = player
         )
     }
 
@@ -124,6 +124,7 @@ fun MainScreen(
 
         PlayerListSection(
             players = players,
+            selectedPlayer = uiState.selectedPlayer,
             onPlayerClick = onPlayerClick
         )
     }
@@ -187,6 +188,7 @@ fun NameInputCard(
 @Composable
 fun PlayerCard(
     player: Player,
+    isSelected: Boolean,
     onClick: () -> Unit
 ) {
     Card(
@@ -198,6 +200,13 @@ fun PlayerCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected) {
+                MaterialTheme.colorScheme.primaryContainer
+            } else {
+                MaterialTheme.colorScheme.surfaceVariant
+            }
+        )
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -227,9 +236,11 @@ fun HeaderSection(
     Text(text = "Hello $name!")
     Text(text = "Androidアプリ開発を始めました")
 
-    if (uiState.selectedPlayerName.isNotBlank()) {
+    uiState.selectedPlayer?.let { player ->
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Selected Player: ${uiState.selectedPlayerName}")
+        Text(text = "Selected Player: ${player.name}")
+        Text(text = "Position: ${player.position}")
+        Text(text = "Number: ${player.number}")
     }
 
     Spacer(modifier = Modifier.height(16.dp))
@@ -255,11 +266,13 @@ fun HeaderSection(
 
 fun LazyListScope.PlayerListSection(
     players: List<Player>,
+    selectedPlayer: Player?,
     onPlayerClick: (Player) -> Unit
 ) {
     items(players) { player ->
         PlayerCard(
             player = player,
+            isSelected = player == selectedPlayer,
             onClick = {
                 onPlayerClick(player)
             }
