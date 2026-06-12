@@ -84,12 +84,12 @@ fun MainScreen(
     }
 
     val onIncrementCount: () -> Unit = {
-        Log.d("MainScreen", "before = $uiState.count")
+        Log.d("MainScreen", "before = ${uiState.count}")
 
         uiState = uiState.copy(
             count = uiState.count + 1
         )
-        Log.d("MainScreen", "after = $uiState.count")
+        Log.d("MainScreen", "after = ${uiState.count}")
     }
 
     val onChangeName: (String) -> Unit = { newText ->
@@ -227,6 +227,31 @@ fun PlayerCard(
 }
 
 @Composable
+fun SelectedPlayerCard(player: Player) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = "Selected Player",
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(text = "Name: ${player.name}")
+            Text(text = "Position: ${player.position}")
+            Text(text = "Number: ${player.number}")
+        }
+    }
+}
+
+@Composable
 fun HeaderSection(
     name: String,
     uiState: MainUiState,
@@ -238,9 +263,7 @@ fun HeaderSection(
 
     uiState.selectedPlayer?.let { player ->
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "Selected Player: ${player.name}")
-        Text(text = "Position: ${player.position}")
-        Text(text = "Number: ${player.number}")
+        SelectedPlayerCard(player = player)
     }
 
     Spacer(modifier = Modifier.height(16.dp))
