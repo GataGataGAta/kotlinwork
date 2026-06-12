@@ -1,9 +1,11 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.kotlin_work.model.MainUiState
+import com.example.kotlin_work.model.Player
 
 class MainViewModel : ViewModel() {
     var uiState by mutableStateOf(MainUiState())

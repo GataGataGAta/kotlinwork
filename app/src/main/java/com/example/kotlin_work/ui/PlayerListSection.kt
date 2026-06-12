@@ -1,4 +1,4 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.ui
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.kotlin_work.model.Player
 
 fun LazyListScope.PlayerListSection(
     players: List<Player>,

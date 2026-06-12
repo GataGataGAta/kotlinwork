@@ -1,4 +1,4 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.model
 
 data class Player(
     val name: String,

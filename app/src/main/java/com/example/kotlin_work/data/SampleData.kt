@@ -1,4 +1,6 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.data
+
+import com.example.kotlin_work.model.Player
 
 val samplePlayers = listOf(
     Player(name = "山田 太郎", position = "Forward", number = 10),

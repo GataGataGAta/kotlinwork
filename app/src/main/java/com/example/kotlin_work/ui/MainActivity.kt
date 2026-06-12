@@ -1,4 +1,4 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,7 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.kotlin_work.data.samplePlayers
+import com.example.kotlin_work.model.Player
 import com.example.kotlin_work.ui.theme.KotlinworkTheme
+import com.example.kotlin_work.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

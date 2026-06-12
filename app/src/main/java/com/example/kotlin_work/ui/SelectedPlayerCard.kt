@@ -1,6 +1,5 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,40 +13,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.kotlin_work.model.Player
 
 @Composable
-fun PlayerCard(
-    player: Player,
-    isSelected: Boolean,
-    onClick: () -> Unit
-) {
+fun SelectedPlayerCard(player: Player) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                onClick()
-            },
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 4.dp
-        ),
+        modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = if (isSelected) {
-                MaterialTheme.colorScheme.primaryContainer
-            } else {
-                MaterialTheme.colorScheme.surfaceVariant
-            }
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         )
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = player.name,
+                text = "Selected Player",
                 fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
+            Text(text = "Name: ${player.name}")
             Text(text = "Position: ${player.position}")
             Text(text = "Number: ${player.number}")
         }

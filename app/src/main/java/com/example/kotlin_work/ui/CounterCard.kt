@@ -1,4 +1,4 @@
-package com.example.kotlin_work
+package com.example.kotlin_work.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
