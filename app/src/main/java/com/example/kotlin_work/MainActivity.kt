@@ -1,7 +1,6 @@
 package com.example.kotlin_work
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -24,15 +23,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kotlin_work.ui.theme.KotlinworkTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,80 +51,34 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-data class Player(
-    val name: String,
-    val position: String,
-    val number: Int
-)
-
-data class MainUiState(
-    val count: Int = 0,
-    val inputName: String = "",
-    val selectedPlayer: Player? = null
-)
-
-
-val samplePlayers = listOf(
-    Player(name = "山田 太郎", position = "Forward", number = 10),
-    Player(name = "佐藤 健", position = "Midfielder", number = 8),
-    Player(name = "鈴木 一郎", position = "Defender", number = 4)
-)
-
 @Composable
 fun MainScreen(
     name: String,
-    players: List<Player>
+    players: List<Player>,
+    mainViewModel: MainViewModel = viewModel()
 ) {
-    var uiState by remember {
-        mutableStateOf(MainUiState())
-    }
-
-    val onIncrementCount: () -> Unit = {
-        Log.d("MainScreen", "before = ${uiState.count}")
-
-        uiState = uiState.copy(
-            count = uiState.count + 1
-        )
-        Log.d("MainScreen", "after = ${uiState.count}")
-    }
-
-    val onChangeName: (String) -> Unit = { newText ->
-        Log.d("MainScreen", "inputName = $newText")
-        uiState = uiState.copy(
-            inputName = newText
-        )
-
-    }
-
-    val onPlayerClick: (Player) -> Unit = { player ->
-        Log.d("MainScreen", "selected player = ${player.name}")
-
-        uiState = uiState.copy(
-            selectedPlayer = player
-        )
-    }
+    val uiState = mainViewModel.uiState
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(24.dp)
     ) {
         item {
             HeaderSection(
                 name = name,
                 uiState = uiState,
-                onIncrementCount = onIncrementCount,
-                onChangeName = onChangeName
+                onIncrementCount = mainViewModel::incrementCount,
+                onChangeName = mainViewModel::changeName
             )
         }
 
         PlayerListSection(
             players = players,
             selectedPlayer = uiState.selectedPlayer,
-            onPlayerClick = onPlayerClick
+            onPlayerClick = mainViewModel::selectPlayer
         )
     }
-
 }
 
 
