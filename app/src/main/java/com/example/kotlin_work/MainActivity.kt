@@ -7,8 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.kotlin_work.data.samplePlayers
-import com.example.kotlin_work.ui.MainScreen
+import com.example.kotlin_work.navigation.AppNavHost
 import com.example.kotlin_work.ui.theme.KotlinworkTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,10 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(
-                        name = "Android",
-                        players = samplePlayers
-                    )
+                    AppNavHost()
                 }
             }
         }
