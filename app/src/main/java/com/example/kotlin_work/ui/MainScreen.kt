@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,7 +21,7 @@ fun MainScreen(
     players: List<Player>,
     mainViewModel: MainViewModel = viewModel()
 ) {
-    val uiState = mainViewModel.uiState
+    val uiState by mainViewModel.uiState.collectAsState()
 
     LazyColumn(
         modifier = Modifier
