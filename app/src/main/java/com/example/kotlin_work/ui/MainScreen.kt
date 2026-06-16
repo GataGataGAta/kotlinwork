@@ -1,12 +1,8 @@
 package com.example.kotlin_work.ui
 
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,21 +37,24 @@ fun MainScreen(
                 onChangeName = mainViewModel::changeName
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = onOpenDetailClick
-            ) {
-                Text(text = "Go to Detail")
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
+//            Spacer(modifier = Modifier.height(16.dp))
+//
+//            Button(
+//                onClick = onOpenDetailClick
+//            ) {
+//                Text(text = "Go to Detail")
+//            }
+//
+//            Spacer(modifier = Modifier.height(16.dp))
         }
 
         PlayerListSection(
             players = players,
             selectedPlayer = uiState.selectedPlayer,
-            onPlayerClick = mainViewModel::selectPlayer
+            onPlayerClick = { player ->
+                mainViewModel.selectPlayer(player)
+                onOpenDetailClick()
+            }
         )
     }
 }
