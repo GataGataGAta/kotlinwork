@@ -19,7 +19,7 @@ import com.example.kotlin_work.viewmodel.MainViewModel
 fun MainScreen(
     name: String,
     players: List<Player>,
-    onOpenDetailClick: () -> Unit,
+    onPlayerDetailClick: (Player) -> Unit,
     mainViewModel: MainViewModel = viewModel()
 ) {
     val uiState by mainViewModel.uiState.collectAsState()
@@ -53,7 +53,7 @@ fun MainScreen(
             selectedPlayer = uiState.selectedPlayer,
             onPlayerClick = { player ->
                 mainViewModel.selectPlayer(player)
-                onOpenDetailClick()
+                onPlayerDetailClick(player)
             }
         )
     }
@@ -66,7 +66,7 @@ fun MainScreenPreview() {
         MainScreen(
             name = "Android",
             players = samplePlayers,
-            onOpenDetailClick = {},
+            onPlayerDetailClick = {},
             mainViewModel = MainViewModel()
         )
     }

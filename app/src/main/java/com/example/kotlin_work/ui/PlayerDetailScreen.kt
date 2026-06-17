@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.kotlin_work.model.Player
 
 @Composable
-fun PlayerDatailScreen(
+fun PlayerDetailScreen(
     player: Player,
     onBackClick: () -> Unit
 ) {
