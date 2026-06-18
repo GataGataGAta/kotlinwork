@@ -11,5 +11,5 @@ object AppScreen {
     fun playerDetail(playerNumber: Int): String {
         return "$PLAYER_DETAIL_ROUTE/$playerNumber"
     }
-
+//test
 }
