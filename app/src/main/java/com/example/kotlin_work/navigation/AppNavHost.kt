@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.kotlin_work.data.findPlayerByNumber
 import com.example.kotlin_work.data.samplePlayers
 import com.example.kotlin_work.ui.MainScreen
 import com.example.kotlin_work.ui.PlayerDetailScreen
@@ -40,9 +41,7 @@ fun AppNavHost() {
                 AppScreen.PLAYER_NUMBER_ARG
             )
 
-            val player = samplePlayers.find { samplePlayer ->
-                samplePlayer.number == playerNumber
-            }
+            val player = findPlayerByNumber(playerNumber)
 
             if (player != null) {
                 PlayerDetailScreen(
