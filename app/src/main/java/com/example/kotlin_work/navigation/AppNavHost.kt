@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.kotlin_work.data.samplePlayers
 import com.example.kotlin_work.ui.MainScreen
 import com.example.kotlin_work.ui.PlayerDetailScreen
+import com.example.kotlin_work.ui.PlayerNotFoundScreen
 
 @Composable
 fun AppNavHost() {
@@ -41,14 +42,21 @@ fun AppNavHost() {
 
             val player = samplePlayers.find { samplePlayer ->
                 samplePlayer.number == playerNumber
-            } ?: samplePlayers.first()
+            }
 
-            PlayerDetailScreen(
-                player = player,
-                onBackClick = {
-                    navController.popBackStack()
-                }
-            )
+            if (player != null) {
+                PlayerDetailScreen(
+                    player = player,
+                    onBackClick = {
+                        navController.popBackStack()
+                    })
+            } else {
+                PlayerNotFoundScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
         }
     }
 }
