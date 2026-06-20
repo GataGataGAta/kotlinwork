@@ -1,6 +1,9 @@
 package com.example.kotlin_work.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,6 +21,7 @@ fun AppNavHost(
     mainViewModel: MainViewModel = viewModel()
 ) {
     val navController = rememberNavController()
+    val uiState by mainViewModel.uiState.collectAsState()
 
     NavHost(
         navController = navController,
@@ -44,8 +48,11 @@ fun AppNavHost(
             val playerNumber = backStackEntry.arguments?.getInt(
                 AppScreen.PLAYER_NUMBER_ARG
             )
+            LaunchedEffect(playerNumber) {
+                mainViewModel.loadPlayerDetail(playerNumber)
 
-            val player = mainViewModel.getPlayerByNumber(playerNumber)
+            }
+            val player = uiState.detailPlayer
 
             if (player != null) {
                 PlayerDetailScreen(
