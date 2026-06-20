@@ -25,7 +25,6 @@ fun AppNavHost() {
         composable(route = AppScreen.HOME) {
             MainScreen(
                 name = "Android",
-                players = playerRepository.getPlayers(),
                 onPlayerDetailClick = { player ->
                     navController.navigate(AppScreen.playerDetail(player.number))
                 }

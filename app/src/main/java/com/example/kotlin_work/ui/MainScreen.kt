@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.kotlin_work.data.samplePlayers
 import com.example.kotlin_work.model.Player
 import com.example.kotlin_work.ui.theme.KotlinworkTheme
 import com.example.kotlin_work.viewmodel.MainViewModel
@@ -18,7 +17,6 @@ import com.example.kotlin_work.viewmodel.MainViewModel
 @Composable
 fun MainScreen(
     name: String,
-    players: List<Player>,
     onPlayerDetailClick: (Player) -> Unit,
     mainViewModel: MainViewModel = viewModel()
 ) {
@@ -49,7 +47,7 @@ fun MainScreen(
         }
 
         PlayerListSection(
-            players = players,
+            players = uiState.players,
             selectedPlayer = uiState.selectedPlayer,
             onPlayerClick = { player ->
                 mainViewModel.selectPlayer(player)
@@ -65,7 +63,6 @@ fun MainScreenPreview() {
     KotlinworkTheme {
         MainScreen(
             name = "Android",
-            players = samplePlayers,
             onPlayerDetailClick = {},
             mainViewModel = MainViewModel()
         )

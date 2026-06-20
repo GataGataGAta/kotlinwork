@@ -11,7 +11,12 @@ import kotlinx.coroutines.flow.update
 
 class MainViewModel : ViewModel() {
     private val playerRepository = PlayerRepository()
-    private val _uiState = MutableStateFlow(MainUiState())
+
+    private val _uiState = MutableStateFlow(
+        MainUiState(
+            players = playerRepository.getPlayers()
+        )
+    )
 
     val uiState = _uiState.asStateFlow()
 
