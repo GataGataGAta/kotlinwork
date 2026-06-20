@@ -1,7 +1,6 @@
 package com.example.kotlin_work.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -11,8 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.kotlin_work.ui.MainScreen
-import com.example.kotlin_work.ui.PlayerDetailScreen
-import com.example.kotlin_work.ui.PlayerNotFoundScreen
+import com.example.kotlin_work.ui.PlayerDetailRoute
 import com.example.kotlin_work.viewmodel.MainViewModel
 
 
@@ -48,25 +46,14 @@ fun AppNavHost(
             val playerNumber = backStackEntry.arguments?.getInt(
                 AppScreen.PLAYER_NUMBER_ARG
             )
-            LaunchedEffect(playerNumber) {
-                mainViewModel.loadPlayerDetail(playerNumber)
-
-            }
-            val player = uiState.detailPlayer
-
-            if (player != null) {
-                PlayerDetailScreen(
-                    player = player,
-                    onBackClick = {
-                        navController.popBackStack()
-                    })
-            } else {
-                PlayerNotFoundScreen(
-                    onBackClick = {
-                        navController.popBackStack()
-                    }
-                )
-            }
+            PlayerDetailRoute(
+                playerNumber = playerNumber,
+                detailPlayer = uiState.detailPlayer,
+                onLoadPlayerDetail = mainViewModel::loadPlayerDetail,
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
