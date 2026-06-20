@@ -45,7 +45,7 @@ fun AppNavHost(
                 AppScreen.PLAYER_NUMBER_ARG
             )
 
-            val player = mainViewModel.findPlayerByNumber(playerNumber)
+            val player = mainViewModel.getPlayerByNumber(playerNumber)
 
             if (player != null) {
                 PlayerDetailScreen(
