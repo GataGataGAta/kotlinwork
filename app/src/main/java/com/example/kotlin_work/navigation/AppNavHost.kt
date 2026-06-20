@@ -1,21 +1,23 @@
 package com.example.kotlin_work.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.kotlin_work.data.PlayerRepository
 import com.example.kotlin_work.ui.MainScreen
 import com.example.kotlin_work.ui.PlayerDetailScreen
 import com.example.kotlin_work.ui.PlayerNotFoundScreen
+import com.example.kotlin_work.viewmodel.MainViewModel
 
 
 @Composable
-fun AppNavHost() {
+fun AppNavHost(
+    mainViewModel: MainViewModel = viewModel()
+) {
     val navController = rememberNavController()
-    val playerRepository = PlayerRepository()
 
     NavHost(
         navController = navController,
@@ -27,7 +29,8 @@ fun AppNavHost() {
                 name = "Android",
                 onPlayerDetailClick = { player ->
                     navController.navigate(AppScreen.playerDetail(player.number))
-                }
+                },
+                mainViewModel = mainViewModel
             )
         }
 
@@ -42,7 +45,7 @@ fun AppNavHost() {
                 AppScreen.PLAYER_NUMBER_ARG
             )
 
-            val player = playerRepository.findPlayerByNumber(playerNumber)
+            val player = mainViewModel.findPlayerByNumber(playerNumber)
 
             if (player != null) {
                 PlayerDetailScreen(

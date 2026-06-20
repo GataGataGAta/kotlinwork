@@ -43,4 +43,8 @@ class MainViewModel : ViewModel() {
             )
         }
     }
+
+    fun findPlayerByNumber(playerNumber: Int?): Player? {
+        return playerRepository.findPlayerByNumber(playerNumber)
+    }
 }
