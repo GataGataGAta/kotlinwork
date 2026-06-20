@@ -6,24 +6,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.kotlin_work.data.findPlayerByNumber
-import com.example.kotlin_work.data.samplePlayers
+import com.example.kotlin_work.data.PlayerRepository
 import com.example.kotlin_work.ui.MainScreen
 import com.example.kotlin_work.ui.PlayerDetailScreen
 import com.example.kotlin_work.ui.PlayerNotFoundScreen
 
+
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
+    val playerRepository = PlayerRepository()
 
     NavHost(
         navController = navController,
-        startDestination = AppScreen.HOME
-    ) {
+        startDestination = AppScreen.HOME,
+
+        ) {
         composable(route = AppScreen.HOME) {
             MainScreen(
                 name = "Android",
-                players = samplePlayers,
+                players = playerRepository.getPlayers(),
                 onPlayerDetailClick = { player ->
                     navController.navigate(AppScreen.playerDetail(player.number))
                 }
@@ -41,7 +43,7 @@ fun AppNavHost() {
                 AppScreen.PLAYER_NUMBER_ARG
             )
 
-            val player = findPlayerByNumber(playerNumber)
+            val player = playerRepository.findPlayerByNumber(playerNumber)
 
             if (player != null) {
                 PlayerDetailScreen(
