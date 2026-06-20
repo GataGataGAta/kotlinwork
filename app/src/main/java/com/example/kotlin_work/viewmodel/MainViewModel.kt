@@ -47,4 +47,14 @@ class MainViewModel : ViewModel() {
     fun getPlayerByNumber(playerNumber: Int?): Player? {
         return playerRepository.findPlayerByNumber(playerNumber)
     }
+
+    fun loadPlayerDetail(playerNumber: Int?) {
+        val player = playerRepository.findPlayerByNumber(playerNumber)
+
+        _uiState.update { currentState ->
+            currentState.copy(
+                detailPlayer = player
+            )
+        }
+    }
 }
