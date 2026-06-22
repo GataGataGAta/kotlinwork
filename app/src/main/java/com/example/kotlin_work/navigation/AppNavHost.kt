@@ -9,10 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.kotlin_work.ui.MainScreen
+import com.example.kotlin_work.ui.MainRoute
 import com.example.kotlin_work.ui.PlayerDetailRoute
 import com.example.kotlin_work.viewmodel.MainViewModel
-
 
 @Composable
 fun AppNavHost(
@@ -27,12 +26,12 @@ fun AppNavHost(
 
         ) {
         composable(route = AppScreen.HOME) {
-            MainScreen(
+            MainRoute(
                 name = "Android",
+                mainViewModel = mainViewModel,
                 onPlayerDetailClick = { player ->
                     navController.navigate(AppScreen.playerDetail(player.number))
-                },
-                mainViewModel = mainViewModel
+                }
             )
         }
 
