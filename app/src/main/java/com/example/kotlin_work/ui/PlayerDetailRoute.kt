@@ -2,18 +2,23 @@ package com.example.kotlin_work.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.example.kotlin_work.model.Player
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.example.kotlin_work.viewmodel.MainViewModel
 
 @Composable
 fun PlayerDetailRoute(
     playerNumber: Int?,
-    detailPlayer: Player?,
-    onLoadPlayerDetail: (Int?) -> Unit,
+    mainViewModel: MainViewModel,
     onBackClick: () -> Unit
 ) {
+    val uiState by mainViewModel.uiState.collectAsState()
+
     LaunchedEffect(playerNumber) {
-        onLoadPlayerDetail(playerNumber)
+        mainViewModel.loadPlayerDetail(playerNumber)
     }
+
+    val detailPlayer = uiState.detailPlayer
 
     if (detailPlayer != null) {
         PlayerDetailScreen(
