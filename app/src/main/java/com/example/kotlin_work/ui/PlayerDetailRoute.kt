@@ -20,7 +20,9 @@ fun PlayerDetailRoute(
 
     val detailPlayer = uiState.detailPlayer
 
-    if (detailPlayer != null) {
+    if (uiState.isDetailLoading) {
+        androidx.compose.material3.Text(text = "Loading...")
+    } else if (detailPlayer != null) {
         PlayerDetailScreen(
             player = detailPlayer,
             onBackClick = onBackClick

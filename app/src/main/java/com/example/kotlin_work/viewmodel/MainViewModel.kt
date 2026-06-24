@@ -49,12 +49,19 @@ class MainViewModel : ViewModel() {
     }
 
     fun loadPlayerDetail(playerNumber: Int?) {
-        val player = playerRepository.findPlayerByNumber(playerNumber)
-
         _uiState.update { currentState ->
             currentState.copy(
-                detailPlayer = player
+                isDetailLoading = true,
+                detailPlayer = null
             )
+        }
+        val player = playerRepository.findPlayerByNumber(playerNumber)
+        _uiState.update { currentState ->
+            currentState.copy(
+                detailPlayer = player,
+                isDetailLoading = false
+            )
+
         }
     }
 }
