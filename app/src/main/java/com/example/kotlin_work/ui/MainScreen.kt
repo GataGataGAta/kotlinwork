@@ -1,6 +1,8 @@
 package com.example.kotlin_work.ui
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -38,11 +40,15 @@ fun MainScreen(
         item {
             SearchPlayerCard(
                 searchText = uiState.searchText,
+                resultCount = players.size,
                 onSearchTextChange = onSearchTextChange,
                 onClearSearchClick = {
                     onSearchTextChange("")
                 }
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
         }
         PlayerListSection(
             players = players,

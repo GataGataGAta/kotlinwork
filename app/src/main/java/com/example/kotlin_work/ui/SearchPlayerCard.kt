@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SearchPlayerCard(
     searchText: String,
+    resultCount: Int,
     onSearchTextChange: (String) -> Unit,
     onClearSearchClick: () -> Unit
 ) {
@@ -33,6 +34,10 @@ fun SearchPlayerCard(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(text = "Players found $resultCount")
 
             Spacer(modifier = Modifier.height(8.dp))
 
