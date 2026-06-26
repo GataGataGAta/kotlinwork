@@ -42,7 +42,8 @@ fun SearchPlayerCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = onClearSearchClick
+                onClick = onClearSearchClick,
+                enabled = searchText.isNotEmpty()
             ) {
                 Text(text = "Clear")
             }
