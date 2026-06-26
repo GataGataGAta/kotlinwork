@@ -36,6 +36,14 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun changeSearchText(newText: String) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                searchText = newText
+            )
+        }
+    }
+
     fun selectPlayer(player: Player) {
         _uiState.update { currentState ->
             currentState.copy(

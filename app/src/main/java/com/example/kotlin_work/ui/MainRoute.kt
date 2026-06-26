@@ -15,11 +15,19 @@ fun MainRoute(
 ) {
     val uiState by mainViewModel.uiState.collectAsState()
 
+    val filteredPlayers = uiState.players.filter { player ->
+        player.name.contains(uiState.searchText, ignoreCase = true) ||
+                player.position.contains(uiState.searchText, ignoreCase = true) ||
+                player.number.toString().contains(uiState.searchText)
+    }
+
     MainScreen(
         name = name,
         uiState = uiState,
+        players = filteredPlayers,
         onIncrementCount = mainViewModel::incrementCount,
         onChangeName = mainViewModel::changeName,
+        onSearchTextChange = mainViewModel::changeSearchText,
         onPlayerClick = { player ->
             mainViewModel.selectPlayer(player)
             onPlayerDetailClick(player)

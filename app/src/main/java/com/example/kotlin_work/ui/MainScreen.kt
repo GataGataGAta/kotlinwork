@@ -17,6 +17,8 @@ fun MainScreen(
     uiState: MainUiState,
     onIncrementCount: () -> Unit,
     onChangeName: (String) -> Unit,
+    players: List<Player>,
+    onSearchTextChange: (String) -> Unit,
     onPlayerClick: (Player) -> Unit
 ) {
     LazyColumn(
@@ -31,20 +33,16 @@ fun MainScreen(
                 onIncrementCount = onIncrementCount,
                 onChangeName = onChangeName
             )
-
-//            Spacer(modifier = Modifier.height(16.dp))
-//
-//            Button(
-//                onClick = onOpenDetailClick
-//            ) {
-//                Text(text = "Go to Detail")
-//            }
-//
-//            Spacer(modifier = Modifier.height(16.dp))
         }
 
+        item {
+            SearchPlayerCard(
+                searchText = uiState.searchText,
+                onSearchTextChange = onSearchTextChange
+            )
+        }
         PlayerListSection(
-            players = uiState.players,
+            players = players,
             selectedPlayer = uiState.selectedPlayer,
             onPlayerClick = onPlayerClick
         )
@@ -66,8 +64,16 @@ fun MainScreenPreview() {
                     )
                 )
             ),
+            players = listOf(
+                Player(
+                    name = "山田　太郎",
+                    position = "Forward",
+                    number = 10
+                )
+            ),
             onIncrementCount = {},
             onChangeName = {},
+            onSearchTextChange = {},
             onPlayerClick = {}
 
         )
