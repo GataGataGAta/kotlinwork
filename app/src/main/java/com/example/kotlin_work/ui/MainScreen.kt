@@ -21,7 +21,8 @@ fun MainScreen(
     onChangeName: (String) -> Unit,
     players: List<Player>,
     onSearchTextChange: (String) -> Unit,
-    onPlayerClick: (Player) -> Unit
+    onPlayerClick: (Player) -> Unit,
+    onToggleSortByName: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -41,10 +42,12 @@ fun MainScreen(
             SearchPlayerCard(
                 searchText = uiState.searchText,
                 resultCount = players.size,
+                isSortByName = uiState.isSortByName,
                 onSearchTextChange = onSearchTextChange,
                 onClearSearchClick = {
                     onSearchTextChange("")
-                }
+                },
+                onToggleSortByName = onToggleSortByName
             )
         }
         item {
@@ -83,7 +86,8 @@ fun MainScreenPreview() {
             onIncrementCount = {},
             onChangeName = {},
             onSearchTextChange = {},
-            onPlayerClick = {}
+            onPlayerClick = {},
+            onToggleSortByName = {}
 
         )
     }

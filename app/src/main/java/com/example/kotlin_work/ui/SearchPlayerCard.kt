@@ -18,7 +18,9 @@ fun SearchPlayerCard(
     searchText: String,
     resultCount: Int,
     onSearchTextChange: (String) -> Unit,
-    onClearSearchClick: () -> Unit
+    onClearSearchClick: () -> Unit,
+    isSortByName: Boolean,
+    onToggleSortByName: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -48,6 +50,19 @@ fun SearchPlayerCard(
                 Text(text = "Clear")
             }
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = onToggleSortByName
+            ) {
+                Text(
+                    text = if (isSortByName) {
+                        "Original order"
+                    } else {
+                        "Sort by Name"
+                    }
+                )
+            }
         }
     }
 }

@@ -21,16 +21,25 @@ fun MainRoute(
                 player.number.toString().contains(uiState.searchText)
     }
 
+    val displeyedPlayers = if (uiState.isSortByName) {
+        filteredPlayers.sortedBy { player ->
+            player.name
+        }
+    } else {
+        filteredPlayers
+    }
+
     MainScreen(
         name = name,
         uiState = uiState,
-        players = filteredPlayers,
+        players = displeyedPlayers,
         onIncrementCount = mainViewModel::incrementCount,
         onChangeName = mainViewModel::changeName,
         onSearchTextChange = mainViewModel::changeSearchText,
         onPlayerClick = { player ->
             mainViewModel.selectPlayer(player)
             onPlayerDetailClick(player)
-        }
+        },
+        onToggleSortByName = mainViewModel::toggleSortByName,
     )
 }

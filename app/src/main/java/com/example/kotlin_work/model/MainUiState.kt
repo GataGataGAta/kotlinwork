@@ -7,5 +7,6 @@ data class MainUiState(
     val players: List<Player> = emptyList(),
     val detailPlayer: Player? = null,
     val isDetailLoading: Boolean = false,
-    val searchText: String = ""
+    val searchText: String = "",
+    val isSortByName: Boolean = false
 )

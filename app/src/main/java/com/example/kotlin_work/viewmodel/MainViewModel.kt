@@ -19,7 +19,6 @@ class MainViewModel : ViewModel() {
     )
 
     val uiState = _uiState.asStateFlow()
-
     fun incrementCount() {
         _uiState.update { currentState ->
             currentState.copy(
@@ -70,6 +69,14 @@ class MainViewModel : ViewModel() {
                 isDetailLoading = false
             )
 
+        }
+    }
+
+    fun toggleSortByName() {
+        _uiState.update { currentState ->
+            currentState.copy(
+                isSortByName = !currentState.isSortByName
+            )
         }
     }
 }
