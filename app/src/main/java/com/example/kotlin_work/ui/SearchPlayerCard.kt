@@ -1,8 +1,11 @@
 package com.example.kotlin_work.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -13,7 +16,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SearchPlayerCard(
     searchText: String,
-    onSearchTextChange: (String) -> Unit
+    onSearchTextChange: (String) -> Unit,
+    onClearSearchClick: () -> Unit
 ) {
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -29,6 +33,14 @@ fun SearchPlayerCard(
                 },
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = onClearSearchClick
+            ) {
+                Text(text = "Clear")
+            }
 
         }
     }

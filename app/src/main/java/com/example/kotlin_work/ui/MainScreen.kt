@@ -38,7 +38,10 @@ fun MainScreen(
         item {
             SearchPlayerCard(
                 searchText = uiState.searchText,
-                onSearchTextChange = onSearchTextChange
+                onSearchTextChange = onSearchTextChange,
+                onClearSearchClick = {
+                    onSearchTextChange("")
+                }
             )
         }
         PlayerListSection(
