@@ -33,14 +33,14 @@ fun SearchPlayerCard(
                 value = searchText,
                 onValueChange = onSearchTextChange,
                 label = {
-                    Text(text = "Search Player")
+                    Text(text = "Search Players")
                 },
                 modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(text = "Players found $resultCount")
+            Text(text = "Results: $resultCount")
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -65,7 +65,7 @@ fun SearchPlayerCard(
                         text = if (isSortByName) {
                             "Original order"
                         } else {
-                            "Sort by Name"
+                            "Sort by name"
                         }
                     )
                 }
