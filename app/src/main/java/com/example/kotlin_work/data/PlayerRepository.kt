@@ -25,7 +25,7 @@ class PlayerRepository {
 
         return if (isSortByName) {
             filteredPlayers.sortedBy { player ->
-                player.name
+                player.nameKana
             }
         } else {
             filteredPlayers

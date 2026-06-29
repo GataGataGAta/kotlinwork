@@ -72,7 +72,8 @@ fun MainScreenPreview() {
                     Player(
                         name = "山田　太郎",
                         position = "Forward",
-                        number = 10
+                        number = 10,
+                        nameKana = "やまだ たろう"
                     )
                 )
             ),
@@ -80,7 +81,8 @@ fun MainScreenPreview() {
                 Player(
                     name = "山田　太郎",
                     position = "Forward",
-                    number = 10
+                    number = 10,
+                    nameKana = "やまだ たろう"
                 )
             ),
             onIncrementCount = {},
