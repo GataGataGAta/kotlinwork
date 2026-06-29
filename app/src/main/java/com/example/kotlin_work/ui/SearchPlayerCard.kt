@@ -44,10 +44,13 @@ fun SearchPlayerCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Row {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Button(
                     onClick = onClearSearchClick,
-                    enabled = searchText.isNotEmpty()
+                    enabled = searchText.isNotEmpty(),
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text(text = "Clear")
                 }
@@ -55,7 +58,8 @@ fun SearchPlayerCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
-                    onClick = onToggleSortByName
+                    onClick = onToggleSortByName,
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text(
                         text = if (isSortByName) {
