@@ -12,4 +12,23 @@ class PlayerRepository {
             player.number == playerNumber
         }
     }
+
+    fun searchPlayers(
+        searchText: String,
+        isSortByName: Boolean
+    ): List<Player> {
+        val filteredPlayers = samplePlayers.filter { player ->
+            player.name.contains(searchText, ignoreCase = true) ||
+                    player.position.contains(searchText, ignoreCase = true) ||
+                    player.number.toString().contains(searchText)
+        }
+
+        return if (isSortByName) {
+            filteredPlayers.sortedBy { player ->
+                player.name
+            }
+        } else {
+            filteredPlayers
+        }
+    }
 }

@@ -11,10 +11,12 @@ import kotlinx.coroutines.flow.update
 
 class MainViewModel : ViewModel() {
     private val playerRepository = PlayerRepository()
+    private val initialPlayers = playerRepository.getPlayers()
 
     private val _uiState = MutableStateFlow(
         MainUiState(
-            players = playerRepository.getPlayers()
+            players = playerRepository.getPlayers(),
+            displayedPlayers = initialPlayers
         )
     )
 
@@ -38,7 +40,11 @@ class MainViewModel : ViewModel() {
     fun changeSearchText(newText: String) {
         _uiState.update { currentState ->
             currentState.copy(
-                searchText = newText
+                searchText = newText,
+                displayedPlayers = updateDisplayedPlayers(
+                    searchText = newText,
+                    isSortByName = currentState.isSortByName
+                )
             )
         }
     }
@@ -49,10 +55,6 @@ class MainViewModel : ViewModel() {
                 selectedPlayer = player
             )
         }
-    }
-
-    fun getPlayerByNumber(playerNumber: Int?): Player? {
-        return playerRepository.findPlayerByNumber(playerNumber)
     }
 
     fun loadPlayerDetail(playerNumber: Int?) {
@@ -74,9 +76,24 @@ class MainViewModel : ViewModel() {
 
     fun toggleSortByName() {
         _uiState.update { currentState ->
+            val newSortState = !currentState.isSortByName
             currentState.copy(
-                isSortByName = !currentState.isSortByName
+                isSortByName = newSortState,
+                displayedPlayers = updateDisplayedPlayers(
+                    searchText = currentState.searchText,
+                    isSortByName = newSortState
+                )
             )
         }
+    }
+
+    private fun updateDisplayedPlayers(
+        searchText: String,
+        isSortByName: Boolean
+    ): List<Player> {
+        return playerRepository.searchPlayers(
+            searchText = searchText,
+            isSortByName = isSortByName
+        )
     }
 }
