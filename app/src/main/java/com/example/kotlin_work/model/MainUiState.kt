@@ -9,5 +9,6 @@ data class MainUiState(
     val detailPlayer: Player? = null,
     val isDetailLoading: Boolean = false,
     val searchText: String = "",
-    val isSortByName: Boolean = false
+    val isSortByName: Boolean = false,
+    val selectedPosition: String = "All"
 )

@@ -15,12 +15,20 @@ class PlayerRepository {
 
     fun searchPlayers(
         searchText: String,
-        isSortByName: Boolean
+        isSortByName: Boolean,
+        selectedPosition: String
     ): List<Player> {
         val filteredPlayers = samplePlayers.filter { player ->
-            player.name.contains(searchText, ignoreCase = true) ||
-                    player.position.contains(searchText, ignoreCase = true) ||
-                    player.number.toString().contains(searchText)
+            val matchesSearchText =
+                player.name.contains(searchText, ignoreCase = true) ||
+                        player.position.contains(searchText, ignoreCase = true) ||
+                        player.number.toString().contains(searchText) ||
+                        player.nameKana.contains(searchText, ignoreCase = true)
+
+            val matchesPosition =
+                selectedPosition == "All" || player.position == selectedPosition
+
+            matchesSearchText && matchesPosition
         }
 
         return if (isSortByName) {

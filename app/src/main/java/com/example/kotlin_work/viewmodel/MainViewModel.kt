@@ -43,7 +43,8 @@ class MainViewModel : ViewModel() {
                 searchText = newText,
                 displayedPlayers = updateDisplayedPlayers(
                     searchText = newText,
-                    isSortByName = currentState.isSortByName
+                    isSortByName = currentState.isSortByName,
+                    selectedPosition = currentState.selectedPosition
                 )
             )
         }
@@ -81,7 +82,8 @@ class MainViewModel : ViewModel() {
                 isSortByName = newSortState,
                 displayedPlayers = updateDisplayedPlayers(
                     searchText = currentState.searchText,
-                    isSortByName = newSortState
+                    isSortByName = newSortState,
+                    selectedPosition = currentState.selectedPosition
                 )
             )
         }
@@ -89,11 +91,26 @@ class MainViewModel : ViewModel() {
 
     private fun updateDisplayedPlayers(
         searchText: String,
-        isSortByName: Boolean
+        isSortByName: Boolean,
+        selectedPosition: String
     ): List<Player> {
         return playerRepository.searchPlayers(
             searchText = searchText,
-            isSortByName = isSortByName
+            isSortByName = isSortByName,
+            selectedPosition = selectedPosition
         )
+    }
+
+    fun changeSelectedPosition(newPosition: String) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                selectedPosition = newPosition,
+                displayedPlayers = updateDisplayedPlayers(
+                    searchText = currentState.searchText,
+                    isSortByName = currentState.isSortByName,
+                    selectedPosition = newPosition
+                )
+            )
+        }
     }
 }
