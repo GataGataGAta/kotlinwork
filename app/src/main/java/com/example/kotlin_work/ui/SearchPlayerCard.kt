@@ -1,6 +1,7 @@
 package com.example.kotlin_work.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,25 +44,27 @@ fun SearchPlayerCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Button(
-                onClick = onClearSearchClick,
-                enabled = searchText.isNotEmpty()
-            ) {
-                Text(text = "Clear")
-            }
+            Row {
+                Button(
+                    onClick = onClearSearchClick,
+                    enabled = searchText.isNotEmpty()
+                ) {
+                    Text(text = "Clear")
+                }
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Button(
-                onClick = onToggleSortByName
-            ) {
-                Text(
-                    text = if (isSortByName) {
-                        "Original order"
-                    } else {
-                        "Sort by Name"
-                    }
-                )
+                Button(
+                    onClick = onToggleSortByName
+                ) {
+                    Text(
+                        text = if (isSortByName) {
+                            "Original order"
+                        } else {
+                            "Sort by Name"
+                        }
+                    )
+                }
             }
         }
     }
