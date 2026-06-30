@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -61,15 +62,25 @@ fun SearchPlayerCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 positions.forEachIndexed { index, position ->
-                    Button(
-                        onClick = {
-                            onPositionClick(position)
-                        },
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text(text = position)
+                    if (position == selectedPosition) {
+                        Button(
+                            onClick = {
+                                onPositionClick(position)
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(text = position)
+                        }
+                    } else {
+                        OutlinedButton(
+                            onClick = {
+                                onPositionClick(position)
+                            },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(text = position)
+                        }
                     }
-
                     if (index < positions.lastIndex) {
                         Spacer(modifier = Modifier.width(4.dp))
                     }
