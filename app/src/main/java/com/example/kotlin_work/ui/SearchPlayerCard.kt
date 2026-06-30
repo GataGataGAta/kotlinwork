@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedTextField
@@ -21,8 +22,16 @@ fun SearchPlayerCard(
     onSearchTextChange: (String) -> Unit,
     onClearSearchClick: () -> Unit,
     isSortByName: Boolean,
-    onToggleSortByName: () -> Unit
+    onToggleSortByName: () -> Unit,
+    selectedPosition: String,
+    onPositionClick: (String) -> Unit
 ) {
+    val positions = listOf(
+        "All",
+        "Forward",
+        "Midfielder",
+        "Defender"
+    )
     Card(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -41,6 +50,31 @@ fun SearchPlayerCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(text = "Results: $resultCount")
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(text = "Position: $selectedPosition")
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                positions.forEachIndexed { index, position ->
+                    Button(
+                        onClick = {
+                            onPositionClick
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(text = position)
+                    }
+
+                    if (index < positions.lastIndex) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
 
