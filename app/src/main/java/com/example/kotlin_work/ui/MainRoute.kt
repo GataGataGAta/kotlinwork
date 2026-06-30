@@ -27,5 +27,6 @@ fun MainRoute(
             onPlayerDetailClick(player)
         },
         onToggleSortByName = mainViewModel::toggleSortByName,
+        onPositionClick = mainViewModel::changeSelectedPosition
     )
 }

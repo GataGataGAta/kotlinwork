@@ -63,7 +63,7 @@ fun SearchPlayerCard(
                 positions.forEachIndexed { index, position ->
                     Button(
                         onClick = {
-                            onPositionClick
+                            onPositionClick(position)
                         },
                         modifier = Modifier.weight(1f)
                     ) {
