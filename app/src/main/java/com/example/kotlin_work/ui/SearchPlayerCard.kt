@@ -28,10 +28,10 @@ fun SearchPlayerCard(
     onPositionClick: (String) -> Unit
 ) {
     val positions = listOf(
-        "All",
-        "Forward",
-        "Midfielder",
-        "Defender"
+        "All" to "All",
+        "Forward" to "FW",
+        "Midfielder" to "MF",
+        "Defender" to "DF"
     )
     Card(
         modifier = Modifier.fillMaxWidth()
@@ -61,24 +61,26 @@ fun SearchPlayerCard(
             Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                positions.forEachIndexed { index, position ->
-                    if (position == selectedPosition) {
+                positions.forEachIndexed { index, positionItem ->
+                    val positionValue = positionItem.first
+                    val positionLabel = positionItem.second
+                    if (positionValue == selectedPosition) {
                         Button(
                             onClick = {
-                                onPositionClick(position)
+                                onPositionClick(positionValue)
                             },
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text(text = position)
+                            Text(text = positionLabel)
                         }
                     } else {
                         OutlinedButton(
                             onClick = {
-                                onPositionClick(position)
+                                onPositionClick(positionValue)
                             },
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text(text = position)
+                            Text(text = positionLabel)
                         }
                     }
                     if (index < positions.lastIndex) {
